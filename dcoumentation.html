@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Documentation - GCU LMS</title>
+    <style>
+      body {
+        background-color: #000;
+        color: #00ff00;
+      }
+      .container {
+        background: #111;
+        border: 2px solid #00ff00;
+        box-shadow: 0 4px 6px rgba(0, 255, 0, 0.5);
+      }
+      .code-block {
+        background: #111;
+        color: #00ff00;
+        border: 1px solid #00ff00;
+      }
+      button {
+        background-color: #111;
+        color: #00ff00;
+        border: 2px solid #00ff00;
+      }
+
+      body {
+        font-family: "Courier New", monospace;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+      }
+
+      h1 {
+        text-shadow: 0 0 5px;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: left;
+      }
+
+      .copy-btn {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        transform: translate(26px, -18px);
+        background: transparent;
+        border: none;
+        color: var(--text-color);
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .code-block {
+        position: relative;
+        padding: 15px;
+        background: #111;
+        color: #00ff00;
+        border: 1px solid #00ff00;
+        border-radius: 5px;
+        font-size: 12px;
+        overflow: hidden;
+        line-height: 12px;
+      }
+      a {
+        margin-bottom: 20px;
+        text-shadow: none;
+        color: #0f0;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>API Documentation GCU LMS</h1>
+    <h3><b>Parent URL:</b> https://lms.gcu.edu.pk</h3>
+    <h3>
+      <b>How it works:</b> LMS only checks the auth token before responding, so
+      one auth token allows access to any of the data.
+    </h3>
+
+    <div class="container">
+      <h2>1: Login</h2>
+      <p>Provides a TOKEN, basic student data, and timetable.</p>
+      <p><strong>POST:</strong> /api/auth/login</p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer null", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+
+      <h3>Request Body:</h3>
+      <div class="code-block">
+        { "usnm": "XXXX-X-XX", "pwd": "USUALLY CNIC" }
+      </div>
+    </div>
+    <div class="container">
+      <h2>Variables</h2>
+      <p>Here is a list of variables used by LMS and their details:</p>
+
+      <ul class="code-block">
+        <li>
+          <strong>TOKEN</strong> - Used for authentication. Provided on login
+        </li>
+        <li>
+          <strong>C_CODE, SE_ID, T_NO</strong> - Provided with
+          S_getStdtDetail_tm requests
+        </li>
+        <li>
+          <strong>GRP, SECTION, SUB_NM, SUB_CODE, T_NO</strong> - Provided with
+          each subject on login
+        </li>
+        <li><strong>YEAR, ROLL_NO</strong> - What do you think?</li>
+        <li><strong>RN</strong> - Roll number without '-X-XX'</li>
+      </ul>
+    </div>
+    <div class="container">
+      <h2>2: Student Information</h2>
+      <p>
+        Provides student profile info including phone, CNIC, father name, and
+        more.
+      </p>
+      <p>
+        <strong>GET:</strong> /api/student<br />/getStudentInformation
+        <br />/XXXX-X-XX
+      </p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*" }
+      </div>
+    </div>
+    <div class="container">
+      <h2>3: Challans</h2>
+      <p>Provides challan data</p>
+      <p>
+        <strong>POST:</strong> /api<br />/AdmittedForms<br />/getSemesterChalans
+      </p>
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+
+      <h3>Request Body:</h3>
+      <div class="code-block">{ "year":YEAR, "rn":RN, "c_code":C_CODE }</div>
+    </div>
+    <div class="container">
+      <h2>4: Assessment Marks</h2>
+      <p>Provides assessment data</p>
+      <p><strong>POST:</strong> /api/marks<br />/getAssessmentMarksList</p>
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+      <h3>Example Request Body:</h3>
+      <div class="code-block">
+        { "GRP":63, "C_CODE":111, "T_NO":1, "SE_ID":829, "STATUS":1,
+        "SECTION":"B3", "SUB_CODE":"URDU-1001", "SUB_NM":"Urdu" }
+      </div>
+    </div>
+    <div class="container">
+      <h2>5: Attendance</h2>
+      <p>Provides attendance</p>
+      <p><strong>POST:</strong> /api/attandence/<br />getStdAttendance</p>
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+      <h3>Example Request Body:</h3>
+      <div class="code-block">
+        { "GRP":63, "C_CODE":111, "T_NO":1, "SE_ID":829, "STATUS":1,
+        "SECTION":"B3", "SUB_CODE":"URDU-1001", "SUB_NM":"Urdu" }
+      </div>
+    </div>
+    <div class="container">
+      <h2>6: More student data</h2>
+      <p>Provides father name and subject combination</p>
+      <p><strong>GET:</strong> /api/session<br />/std_PDF <br />/XXXX-X-XX</p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*" }
+      </div>
+    </div>
+    <div class="container">
+      <h2>7: Get Photo</h2>
+      <p>Gives a photo of the student if uploaded.</p>
+      <p>
+        <strong>GET:</strong>
+        https://sfc.gcu.edu.pk/get-lms-img/C_CODE/SE_ID/MAJ_ID/<br />XXXX-X-XX
+      </p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*" }
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>8: Get Matric Data</h2>
+      <p>Gives the matric data uploaded by the student.</p>
+      <p><strong>POST:</strong> /util/S_GetFall2024Data</p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+
+      <h3>Request Body:</h3>
+      <div class="code-block">
+        { "param": { "c_code": 111, "se_id": 829, "maj_id": 63, "rn": 3742 } }
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>9: Update Matric Data</h2>
+      <p>Updates the matric data uploaded by the student.</p>
+      <p><strong>POST:</strong> /util/S_UpdateFall2024Data</p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+
+      <h3>Request Body:</h3>
+      <div class="code-block">
+        { "param": { "c_code": 111, "se_id": 829, "maj_id": 63, "rn": 3742,
+        "obt": 405, "tot": 555, "brd_rn": 545272, "brd_nm": "Muhammad Zafar",
+        "pass_year": 2024, "division": "1st division", "grd": "A+" } }
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>10: Change Password</h2>
+      <p>Changes the user's password.</p>
+      <p><strong>POST:</strong> /api/auth/updatePassword</p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+
+      <h3>Request Body:</h3>
+      <div class="code-block">
+        { "usnm": "XXXX-X-XX", "oldpass": "***", "newpass": "***",
+        "confirmpass": "***" }
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>11: Get SFC Data</h2>
+      <p>Gives the data of the student uploaded to SFC.</p>
+      <p><strong>GET:</strong> https://sfc.gcu.edu.pk/api/<br />userProfile</p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer TOKEN", "Accept": "application/json,
+        text/plain, */*" }
+      </div>
+    </div>
+    <div class="container">
+      <h2>12: Login Through SFC</h2>
+      <p>Provides a TOKEN and basic student data</p>
+      <p><strong>POST:</strong> /api/fc/login</p>
+
+      <h3>Request Headers:</h3>
+      <div class="code-block">
+        { "Authorization": "Bearer null", "Accept": "application/json,
+        text/plain, */*", "Content-Type": "application/json" }
+      </div>
+
+      <h3>Request Body:</h3>
+      <div class="code-block">
+        { "usnm": "XXXX-X-XX", "pwd": "USUALLY CNIC" }
+      </div>
+    </div>
+    <a href="index.html">WireMad</a>
+    <a href="csvsort.html">CSV Sort</a>
+    <a href="dcoumentation.html">Documentation</a>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".code-block").forEach((block) => {
+          const copyBtn = document.createElement("button");
+          copyBtn.innerHTML = "&#128203;";
+          copyBtn.classList.add("copy-btn");
+          block.appendChild(copyBtn);
+          copyBtn.addEventListener("click", () => {
+            const text = block.innerText.trim();
+            navigator.clipboard
+              .writeText(text)
+              .then(() => {
+                copyBtn.textContent = "✔";
+                setTimeout(() => (copyBtn.innerHTML = "&#128203;"), 1500);
+              })
+              .catch((err) => console.error("Copy failed", err));
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
