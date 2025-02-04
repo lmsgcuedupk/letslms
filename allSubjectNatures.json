@@ -1,0 +1,18 @@
+[
+  {
+    "NAT_ID": 4,
+    "DES_NM": "INTERNSHIP"
+  },
+  {
+    "NAT_ID": 2,
+    "DES_NM": "PRACTICAL"
+  },
+  {
+    "NAT_ID": 1,
+    "DES_NM": "THEORY"
+  },
+  {
+    "NAT_ID": 3,
+    "DES_NM": "THESIS/PROJECT"
+  }
+]
