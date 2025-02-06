@@ -1,0 +1,152 @@
+[
+  [
+    {
+      "DIGEST_TEXT": "CALL `STD_assessmentMarkList` (...)",
+      "time_taken": "216.0028",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:32:26.464Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `STD_getAnnouncments` (...)",
+      "time_taken": "71.8789",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:32:28.485Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `STD_getTimetable` (...)",
+      "time_taken": "48.0831",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:32:28.180Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `STD_getAttendance` (...)",
+      "time_taken": "47.1425",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:30:34.793Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `updateStudentMarks` (...)",
+      "time_taken": "21.8139",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:32:09.901Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `getPreviousMarkStd` (...)",
+      "time_taken": "20.2153",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:31:25.945Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `STD_login` (...)",
+      "time_taken": "15.7792",
+      "SUM_ROWS_AFFECTED": 56534,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:30:09.399Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `FM_updateAttendance` (...)",
+      "time_taken": "12.8733",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T12:50:19.400Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `std_PDF` (?)",
+      "time_taken": "10.0178",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:31:00.531Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `S_getStdtDetail_tm` (?)",
+      "time_taken": "9.8042",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:31:00.502Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `S_GetFall2024Data` (...)",
+      "time_taken": "9.2239",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:31:08.396Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `lms` . `tm_fetch_timeDurations` ( )",
+      "time_taken": "9.0389",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T06:22:09.231Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `FM_getAttendance` (...)",
+      "time_taken": "8.2603",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:19:14.876Z"
+    },
+    {
+      "DIGEST_TEXT": "SET SESSION `character_set_results` = ?",
+      "time_taken": "7.7333",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-04T21:19:39.707Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `S_UpdateFall2024Data` (...)",
+      "time_taken": "5.2583",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:03:28.521Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `getStudentInformation` (?)",
+      "time_taken": "5.0194",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:31:08.469Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `FM_getDateOfExistAttandance` (...)",
+      "time_taken": "3.3942",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T14:19:11.563Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `getCredentials` (?)",
+      "time_taken": "2.7856",
+      "SUM_ROWS_AFFECTED": 10028,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T13:49:31.994Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `U_getClasses` (...)",
+      "time_taken": "2.2372",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T13:39:27.053Z"
+    },
+    {
+      "DIGEST_TEXT": "CALL `lms` . `getAllAssessments` (...)",
+      "time_taken": "2.0700",
+      "SUM_ROWS_AFFECTED": 0,
+      "SUM_ROWS_EXAMINED": 0,
+      "LAST_SEEN": "2025-02-05T13:59:35.878Z"
+    }
+  ],
+  {
+    "fieldCount": 0,
+    "affectedRows": 0,
+    "insertId": 0,
+    "info": "",
+    "serverStatus": 34,
+    "warningStatus": 0
+  }
+]

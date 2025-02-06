@@ -1,0 +1,458 @@
+[
+  [
+    {
+      "desig_id": 1,
+      "des": "IT"
+    },
+    {
+      "desig_id": 2,
+      "des": "Professor"
+    },
+    {
+      "desig_id": 3,
+      "des": "Assistant Professor"
+    },
+    {
+      "desig_id": 4,
+      "des": "Visiting Faculty"
+    },
+    {
+      "desig_id": 5,
+      "des": "Lecturer"
+    },
+    {
+      "desig_id": 6,
+      "des": "Senior Visiting Faculty"
+    },
+    {
+      "desig_id": 7,
+      "des": "Deputy Registrar"
+    },
+    {
+      "desig_id": 8,
+      "des": "Assistant Registrar"
+    },
+    {
+      "desig_id": 9,
+      "des": "Superintendent"
+    },
+    {
+      "desig_id": 10,
+      "des": "Data Processor"
+    },
+    {
+      "desig_id": 11,
+      "des": "Assistant"
+    },
+    {
+      "desig_id": 12,
+      "des": "Senior Computer Operator"
+    },
+    {
+      "desig_id": 13,
+      "des": "Junior Clerk"
+    },
+    {
+      "desig_id": 14,
+      "des": "Naib Qasid"
+    },
+    {
+      "desig_id": 15,
+      "des": "Professor Emeritus"
+    },
+    {
+      "desig_id": 16,
+      "des": "Associate Professor"
+    },
+    {
+      "desig_id": 17,
+      "des": "Research Assistant/Teaching Assistant"
+    },
+    {
+      "desig_id": 18,
+      "des": "Research Officer"
+    },
+    {
+      "desig_id": 19,
+      "des": "Office Secretary"
+    },
+    {
+      "desig_id": 20,
+      "des": "Laboratory Assistant"
+    },
+    {
+      "desig_id": 21,
+      "des": "Store Keeper"
+    },
+    {
+      "desig_id": 22,
+      "des": "Technicians"
+    },
+    {
+      "desig_id": 23,
+      "des": "Senior Lab Attendant"
+    },
+    {
+      "desig_id": 24,
+      "des": "Laboratory Attendant"
+    },
+    {
+      "desig_id": 25,
+      "des": "Attendants"
+    },
+    {
+      "desig_id": 26,
+      "des": "Distinguished Professor"
+    },
+    {
+      "desig_id": 27,
+      "des": "Computer Support Supervisor"
+    },
+    {
+      "desig_id": 28,
+      "des": "Senior Clerk"
+    },
+    {
+      "desig_id": 29,
+      "des": "Jr. Clerk"
+    },
+    {
+      "desig_id": 30,
+      "des": "Sub-Engineer"
+    },
+    {
+      "desig_id": 31,
+      "des": "Library Assistant"
+    },
+    {
+      "desig_id": 32,
+      "des": "Helper"
+    },
+    {
+      "desig_id": 33,
+      "des": "Senior Visiting Professor"
+    },
+    {
+      "desig_id": 34,
+      "des": "Computer Programmer"
+    },
+    {
+      "desig_id": 35,
+      "des": "Library Attendant"
+    },
+    {
+      "desig_id": 36,
+      "des": "Girls Room Attendant"
+    },
+    {
+      "desig_id": 37,
+      "des": "Network Administrator"
+    },
+    {
+      "desig_id": 38,
+      "des": "Assistant Network Administrator"
+    },
+    {
+      "desig_id": 39,
+      "des": "Assistant Lab Supervisor"
+    },
+    {
+      "desig_id": 40,
+      "des": "Hardware Lab Supervisor"
+    },
+    {
+      "desig_id": 41,
+      "des": "Computer Operator"
+    },
+    {
+      "desig_id": 42,
+      "des": "Lab Supervisor"
+    },
+    {
+      "desig_id": 43,
+      "des": "Lab. Engineer"
+    },
+    {
+      "desig_id": 44,
+      "des": "Office Manager"
+    },
+    {
+      "desig_id": 45,
+      "des": "Project Engineer"
+    },
+    {
+      "desig_id": 46,
+      "des": "Assistant Engineer"
+    },
+    {
+      "desig_id": 47,
+      "des": "Cad Operator / Architecture Draftsman"
+    },
+    {
+      "desig_id": 48,
+      "des": "Senior Cad Operator"
+    },
+    {
+      "desig_id": 49,
+      "des": "Supervisor"
+    },
+    {
+      "desig_id": 50,
+      "des": "Electrician"
+    },
+    {
+      "desig_id": 51,
+      "des": "Mason"
+    },
+    {
+      "desig_id": 52,
+      "des": "Plumber"
+    },
+    {
+      "desig_id": 53,
+      "des": "Carpenter"
+    },
+    {
+      "desig_id": 54,
+      "des": "Tube-Well Operator"
+    },
+    {
+      "desig_id": 55,
+      "des": "Telephone Lineman"
+    },
+    {
+      "desig_id": 56,
+      "des": "Polisher"
+    },
+    {
+      "desig_id": 57,
+      "des": "Uphoster"
+    },
+    {
+      "desig_id": 58,
+      "des": "Painter"
+    },
+    {
+      "desig_id": 59,
+      "des": "Special Mason"
+    },
+    {
+      "desig_id": 60,
+      "des": "Generator Operator"
+    },
+    {
+      "desig_id": 61,
+      "des": "Special Labour"
+    },
+    {
+      "desig_id": 62,
+      "des": "Despatch Rider"
+    },
+    {
+      "desig_id": 63,
+      "des": "Machine Operator"
+    },
+    {
+      "desig_id": 64,
+      "des": "Daftri"
+    },
+    {
+      "desig_id": 65,
+      "des": "Additional Controller Of Examinations"
+    },
+    {
+      "desig_id": 66,
+      "des": "Controller Of Examinations"
+    },
+    {
+      "desig_id": 67,
+      "des": "Deputy Controller Of Examinations"
+    },
+    {
+      "desig_id": 68,
+      "des": "Assistant Controller Of Examinations"
+    },
+    {
+      "desig_id": 69,
+      "des": "Accounts Clerk"
+    },
+    {
+      "desig_id": 70,
+      "des": "Research Fellow"
+    },
+    {
+      "desig_id": 71,
+      "des": "Moazzan"
+    },
+    {
+      "desig_id": 72,
+      "des": "Director"
+    },
+    {
+      "desig_id": 73,
+      "des": "Deputy Director"
+    },
+    {
+      "desig_id": 74,
+      "des": "Office Associate"
+    },
+    {
+      "desig_id": 75,
+      "des": "Assistant Professor(Ipfp)"
+    },
+    {
+      "desig_id": 76,
+      "des": "Research Supervisor"
+    },
+    {
+      "desig_id": 77,
+      "des": "Assistant Director"
+    },
+    {
+      "desig_id": 78,
+      "des": "Visiting Faculty On Lecture Basis"
+    },
+    {
+      "desig_id": 79,
+      "des": "Ph.D Fellow"
+    },
+    {
+      "desig_id": 80,
+      "des": "Campus Counselor"
+    },
+    {
+      "desig_id": 81,
+      "des": "Deputy Course Coordinator"
+    },
+    {
+      "desig_id": 82,
+      "des": "Library_Cum_Junior_Clerk"
+    },
+    {
+      "desig_id": 83,
+      "des": "Treasurer"
+    },
+    {
+      "desig_id": 84,
+      "des": "Additional Treasurer"
+    },
+    {
+      "desig_id": 85,
+      "des": "Deputy Treasurer"
+    },
+    {
+      "desig_id": 86,
+      "des": "Assistant Treasurer"
+    },
+    {
+      "desig_id": 87,
+      "des": "Audit & Account Assistant"
+    },
+    {
+      "desig_id": 88,
+      "des": "Deputy Superintendent"
+    },
+    {
+      "desig_id": 89,
+      "des": "Curator"
+    },
+    {
+      "desig_id": 90,
+      "des": "M.Phil Fellow"
+    },
+    {
+      "desig_id": 91,
+      "des": "Animal House Keeper"
+    },
+    {
+      "desig_id": 92,
+      "des": "Tennis Marker"
+    },
+    {
+      "desig_id": 93,
+      "des": "Senior Curator"
+    },
+    {
+      "desig_id": 94,
+      "des": "lectrurer"
+    },
+    {
+      "desig_id": 95,
+      "des": "Chairperson"
+    },
+    {
+      "desig_id": 96,
+      "des": "System Analyst"
+    },
+    {
+      "desig_id": 97,
+      "des": "Permanent"
+    },
+    {
+      "desig_id": 98,
+      "des": "Facilitation Center Officer"
+    },
+    {
+      "desig_id": 99,
+      "des": "Director Purchases"
+    },
+    {
+      "desig_id": 100,
+      "des": "Supritendent"
+    },
+    {
+      "desig_id": 101,
+      "des": "Suprintendent"
+    }
+  ],
+  [
+    {
+      "ctgry": "GCU (Permanent)",
+      "sub_nm": "P"
+    },
+    {
+      "ctgry": "Government (Transfered)",
+      "sub_nm": "M"
+    },
+    {
+      "ctgry": "Temporary",
+      "sub_nm": "T"
+    },
+    {
+      "ctgry": "Contract",
+      "sub_nm": "C"
+    },
+    {
+      "ctgry": "Tenure Track",
+      "sub_nm": "TT"
+    },
+    {
+      "ctgry": "IPFP",
+      "sub_nm": "IPFP"
+    },
+    {
+      "ctgry": "Additional Charge",
+      "sub_nm": "AC"
+    },
+    {
+      "ctgry": "junior clerk",
+      "sub_nm": "JC"
+    },
+    {
+      "ctgry": "Daily Wages",
+      "sub_nm": "DW"
+    },
+    {
+      "ctgry": "LEAVE VACANCY",
+      "sub_nm": "LV"
+    }
+  ],
+  {
+    "fieldCount": 0,
+    "affectedRows": 0,
+    "insertId": 0,
+    "info": "",
+    "serverStatus": 34,
+    "warningStatus": 0
+  }
+]
